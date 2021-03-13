@@ -7,13 +7,30 @@ import java.util.Arrays;
 
 public class Main {
 	
-	public static int[] binarySearching(int[] array, int money) {
+	public static int binarySearch(int[] array, int k) {
+		int pos = -1;
+		int i = 0;
+		int j = array.length-1;
+		while(i <= j && pos<0) {
+		    int m = (i+j)/2;
+		    if(array[m]==k) {
+		        pos = m;
+		    }else if(array[m]<k) {
+		        i = m+1;
+		    }else {
+		        j = m-1;
+		    }
+		}
+		return pos;
+	}
+	
+	public static int[] exactSum(int[] array, int money) {
 		int[] bestPrices = new int[2];
         int diffMin = Integer.MAX_VALUE;
 
 	    for(int x = 0; x<array.length; x++) {    
     		int k = money-array[x];
-    		int found = Arrays.binarySearch(array, k);
+    		int found = binarySearch(array, k);
     		int diff = Math.abs(array[x]-k);
     		if(x != found && found>=0 && diff<diffMin) {
     			diffMin = diff;
@@ -39,7 +56,7 @@ public class Main {
 		
 		int money = Integer.parseInt(br.readLine());
 		Arrays.sort(prices);
-		int[] bestPrices = binarySearching(prices, money);
+		int[] bestPrices = exactSum(prices, money);
 			
 		bw.write("Peter should buy books whose prices are "+bestPrices[0]+" and "+bestPrices[1]+".");
 		bw.newLine();
