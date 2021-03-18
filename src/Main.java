@@ -46,20 +46,27 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int availableBooks = Integer.parseInt(br.readLine());
-		int[] prices = new int[availableBooks];
-		String[] pricesParts = br.readLine().split(" ");
+		String line = br.readLine();
+		String output = "";
 		
-		for(int i = 0; i<pricesParts.length; i++) {
-			prices[i] = Integer.parseInt(pricesParts[i]);
-		}
-		
-		int money = Integer.parseInt(br.readLine());
-		Arrays.sort(prices);
-		int[] bestPrices = exactSum(prices, money);
+		while(line != null) {
+			int availableBooks = Integer.parseInt(line);
+			int[] prices = new int[availableBooks];
+			String[] pricesParts = br.readLine().split(" ");
 			
-		bw.write("Peter should buy books whose prices are "+bestPrices[0]+" and "+bestPrices[1]+".");
-		bw.newLine();
+			for(int i = 0; i<pricesParts.length; i++) {
+				prices[i] = Integer.parseInt(pricesParts[i]);
+			}
+			
+			int money = Integer.parseInt(br.readLine());
+			Arrays.sort(prices);
+			int[] bestPrices = exactSum(prices, money);
+			output += "Peter should buy books whose prices are "+bestPrices[0]+" and "+bestPrices[1]+".\n\n";
+			line = br.readLine();
+			line = br.readLine();
+		}
+			
+		bw.write(output);
 		
 		br.close();
 		bw.close();
